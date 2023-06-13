@@ -1,0 +1,362 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  /* height: fit-content; */
+  position: relative;
+  background-color: #313131;
+}
+
+.camera {
+  position: relative;
+}
+
+video {
+  width: 100%;
+  /* max-width: 100%; */
+  /* height: 50vh; */
+  height: 100vh;
+  /* min-height: 50%;
+  max-height: 100%; */
+  object-fit: fill;
+}
+
+.recorded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: 0.4s;
+}
+
+video#recording {
+  width: 100%;
+  max-width: 100%;
+}
+
+.recorded.hasRecorded {
+  left: 0;
+}
+
+.recorded > button.save {
+  margin-left: 65px;
+}
+
+.recorded > button.download {
+  margin-left: 100px;
+}
+
+.recorded > button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  background-position: 0%;
+  background-image: linear-gradient(to right, #AA093C 100%, #FF4F84 50%);
+  color: #fff;
+  font-weight: 500;
+  font-size: small;
+  transition: 0.4s;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.result > button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  background-position: 0%;
+  background-image: linear-gradient(to right, #844FFF 100%, #FF4F84 50%);
+  color: #fff;
+  font-weight: 700;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.recordingBtn > button.record {
+  display: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  position: absolute;
+  bottom: 110px;
+  left: calc(50% - 30px);
+  border: 4px solid #fff;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.recordingBtn > button.recording {
+  background: crimson;
+  animation: blinker 1.5s linear infinite;
+}
+
+.top {
+  position: fixed;
+  color: #fff;
+  top: 20px;
+  right: 20px;
+  z-index: 3;
+}
+
+#stopBtn {
+  /* display: none;
+  background: transparent;
+  color: crimson; */
+
+  width: 60px;
+  height: 60px;
+  display: none;
+  border-radius: 50%;
+  background: transparent;
+  position: absolute;
+  bottom: 110px;
+  left: calc(50% - 30px);
+  border: 4px solid #fff;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: none;
+  border-width: 0px !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  border-image: none !important; 
+}
+
+#recordedTime {
+  color: crimson;
+  font-size: 35px;
+  font-weight: 900;
+  animation: blinker 1.5s linear infinite;
+}
+
+.overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 12;
+}
+
+#text {
+  color: crimson;
+  font-size: 3rem;
+  font-weight: 700;
+  z-index: 12;
+  /* animation: blinker 2.0s linear infinite; */
+  /* animation: counting .5s 1s; */
+  animation: counting 1.0s linear infinite;
+}
+
+#recordedBlobSize {
+  color: crimson;
+  font-size: 15px;
+  font-weight: 500;
+  /* animation: blinker 2.0s linear infinite; */
+}
+
+.logged {
+  font-size: 15px;
+  text-align: left;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes counting {
+  0% {
+    /* transform: scale(1.1); */
+    /* font-size: small; */
+    opacity: 0;
+  }
+  50% {
+    /* transform: scale(.5); */
+    font-size: 40vw;
+    opacity: 0.5;
+  }
+  100% {
+    /* transform: scale(1.1); */
+    font-size: 10vw;
+    opacity: 0;
+  }
+}
+
+.progress {
+  position: relative;
+  z-index: 100;
+  background: none;
+}
+
+.modal {
+  position: relative;
+  z-index: 100;
+  background: none;
+}
+
+.dot-animate {
+  clip-path: inset(0 3ch 0 0);
+  animation: l 1s steps(4) infinite;
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0 -1ch 0 0)
+  }
+}
+
+.loader {
+	border-top-color: #AA093C;
+	-webkit-animation: spinner 1.5s linear infinite;
+	animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.fade-in {
+  animation: fadeIn ease 1.5s;
+  -webkit-animation: fadeIn ease 5s;
+  -moz-animation: fadeIn ease 5s;
+  -o-animation: fadeIn ease 5s;
+  -ms-animation: fadeIn ease 5s;
+}
+
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut ease-in-out 1.5s;
+  -webkit-animation: fadeOut ease-in-out 1.2s;
+  -moz-animation: fadeOut ease-in-out 1.2s;
+  -o-animation: fadeOut ease-in-out 1.2s;
+  -ms-animation: fadeOut ease-in-out 1.2s;
+}
+
+
+@keyframes fadeOut{
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-o-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-ms-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
